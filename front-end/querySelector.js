@@ -4,7 +4,7 @@
  * @param {boolean} forceNodeList Forcer à renvoyer une NodeList, cf. Documentation
  * @returns {(HTMLElement|NodeList)} Element ou liste d'éléments si plusieurs
  */
-export default (query, forceNodeList = false) => {
+export default function (query, forceNodeList = false) {
     let result = document.querySelectorAll(query)
     if (!result[0]) {
         return null
