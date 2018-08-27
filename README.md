@@ -64,6 +64,8 @@ let element = qS("#element", true)
 
 Il permet une meilleure lisibilité du code et n'utilise qu'une seule instruction pour sélectionner un seul ou plusieurs éléments.
 
+__________________________________________________________________________
+
 ## DOMAnimations
 
 > Fichier: `front-end/domAnimations.js`
