@@ -2,9 +2,9 @@
 
 Un ensemble de modules JS pour gagner du temps. Pour les utiliser il est possible de copier-coller le code directement dans votre app, mais il est recommandé d'utiliser un bundler comme Webpack ou Browserify.
 
-# Modules Front-end
+# Modules Front-end
 
-## querySelector
+## querySelector()
 
 > Fichier: `front-end/querySelector.js`
 
@@ -64,9 +64,7 @@ let element = qS("#element", true)
 
 Il permet une meilleure lisibilité du code et n'utilise qu'une seule instruction pour sélectionner un seul ou plusieurs éléments.
 
-
-
-__________________________________________________________________________
+---
 
 ## DOMAnimations
 
@@ -109,3 +107,100 @@ DOMAnimations.slideUp(element, 1000) //Cacher l'élément avec une animation de 
 
 DOMAnimations.slideToggle(element, 400) //Afficher ou cacher l'élément avec une animation de 400 ms
 ```
+
+## css()
+
+> Dans le fichier `front-end/css.js`
+
+Ce module permet un accès plus simple à  `window.getComputedStyle()` en lecture et à `element.style` en écriture.
+
+En clair, **il permet de récupérer les valeurs des propriétés CSS d'un élément, ainsi que de les modifier**.
+
+### Importer le module
+
+Importation comme un module ES6, si vous utilisez un bundler
+
+```javascript
+import css from './css'
+```
+
+### Utilisation
+
+La fonction `css()` se comporte différemment selon le nombre et le type d'arguments qui lui sont passés.
+
+##### Lire les propriétés
+
+###### Lire une seule propriété
+
+Pour obtenir la valeur d'une seule propriété, on passe en arguments l'élément ciblé et la propriété que l'on veut lire.
+
+```javascript
+let width = css(element, 'width') //Renvoie la valeur de la propriété css 'width'
+
+// Exemple: renvoie 'auto', ou bien '120px'
+```
+
+###### Lire plusieurs propriétés à la fois
+
+Pour obtenir la valeur d'une seule propriété, on passe en arguments l'élément ciblé et un `Array` contenant les propriétés que l'on veut lire.
+
+```javascript
+let properties = css(element, ['width', 'height', 'background-color'])
+```
+
+La valeur retournée est alors un tableau à 2 dimensions contenant les propriétés et leurs valeurs. Par exemple pour l'instruction donnée ci-dessus,  la variable`properties` ressembler à ceci:
+
+```javascript
+[[ "width", "auto" ],[ "height", "auto" ],[ "background-color", "rgb(240, 0, 0)"]]
+```
+
+##### Modifier les propriétés
+
+###### Modifier une seule propriété
+
+Pour modifier la valeur d'une seule propriété, on passe en arguments l'élément ciblé, le nom de la propriété sur laquelle agir, et la valeut désirée.
+
+```javascript
+css(element, 'color', '#f00')
+```
+
+Il est possible de modifier une propriété de manière relative:
+
+```javascript
+// Augmenter la hauteur de 50 px
+css(element, 'height', '+=50px')
+
+// Réduire la largeur de 30 px
+css(element, 'width', '-=30px')
+```
+
+La valeur sera ajoutée à celle renvoyée par `window.getComputedStyle`.
+
+> Attention: Cette façon de modifier les valeur de fonctionne que pour les valeurs numériques et ne supporte que l'unité `px`. L'utilisation d'une autre propriété renvoie l'erreur `Error in css() module: Unsupported property, or you need to use px values.`
+
+###### Modifier plusieurs propriétés à la fois
+
+Pour agir sur plusieurs propriétés, on passe en arguments l'élément ciblé, et un objet contenant toutes les propriétés à modifier.
+
+```javascript
+// Modifier plusieurs propriétés
+css(element, {
+  'width': '250px',
+  'margin-bottom': '20px',
+  'color': 'blue'
+})
+```
+
+A noter que la modification relative est possible ici aussi.
+
+```javascript
+css(element, {
+  'width': '+=20px', //Augmenter la largeur de 20 px
+  'margin-bottom': '-=15px', // Réduire la marge inférieure de 15 px
+  'overflow': 'hidden'
+})
+```
+
+__________________________
+
+Pour tout signalement de bugs ou demande de fonctionnalités, utilisez les *issues* de GitHub ou bien contactez moi sur Twitter [@lboyer_bx](https://twitter.com/lboyer_bx).
