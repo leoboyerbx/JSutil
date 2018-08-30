@@ -73,6 +73,34 @@ class DOMAnimations {
             this.slideUp(element, duration)
         }
     }
+
+    /**
+     * Fonction qui initialise le module si on veut une utilisation semblable à jQuery
+     */
+    static init () {
+        let anim = this
+        /**
+         * Cacher cet élément avec un effet de repli
+         * @param {Number} duration Durée de l'animation
+         */
+        HTMLElement.prototype.slideUp = function(duration = 500) {
+            anim.slideUp(this, duration)
+        }
+        /**
+         * Afficher cet élément avec un effet de repli
+         * @param {Number} duration Durée de l'animation
+         */
+        HTMLElement.prototype.slideDown = function(duration = 500) {
+            anim.slideDown(this, duration)
+        }
+        /**
+         * Afficher cet élément avec un effet de repli
+         * @param {Number} duration Durée de l'animation
+         */
+        HTMLElement.prototype.slideToggle = function(duration = 500) {
+            anim.slideToggle(this, duration)
+        }
+    }
 }
 
 module.exports = DOMAnimations
