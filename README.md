@@ -84,19 +84,38 @@ import * as DOMAnimations from './domAnimations'
 
 ### Utilisation
 
-Les 3 fonctions de l'objet prennent 2 arguments:
+On commence par initialiser le module, juste après l'importation. Pour cela on appelle la fonction `init()`
 
-- `element`: l'élément à afficher ou à masquer
+```javascript
+DOMAnimations.init()
+```
 
-- `duration`: la durée de l'animation, par défaut à 500 ms.
+On peut maintenant utiliser les 3 effets comme des méthodes de `HTMLElement`, avec en argument la durée de l'animation (500ms par défaut): 
 
-Chaque fonction a un rôle:
+```javascript
+element.slideToggle() //Afficher l'élément avec une animation de 500 ms
+
+element.slideUp(1000) //Cacher l'élément avec une animation de 1s
+
+element.slideToggle(400) //Afficher ou cacher l'élément avec une animation de 400 ms
+```
+
+Les 3 effets:
 
 - `slideUp()`: Cache l'élément (repliage)
 
 - `slideDown()`: Affiche l'élément (dépliage)
 
 - `slideToggle()`: Affiche l'élément si il est caché et le cache si il est affiché
+
+
+Si on ne souhaite pas avoir à appeler une fonction au début du script, on peut utiliser directement les méthodes de l'objet `DOMAnimations`.
+
+Dans ce cas les fonctions prennent 2 arguments :
+
+- `element`: l'élément à afficher ou à masquer
+
+- `duration`: la durée de l'animation, par défaut à 500 ms.
 
 #### Exemples
 
@@ -108,7 +127,8 @@ DOMAnimations.slideUp(element, 1000) //Cacher l'élément avec une animation de 
 DOMAnimations.slideToggle(element, 400) //Afficher ou cacher l'élément avec une animation de 400 ms
 ```
 
-## css()
+________________________________________________________
+
 
 > Dans le fichier `front-end/css.js`
 
@@ -201,6 +221,6 @@ css(element, {
 })
 ```
 
-__________________________
+---
 
 Pour tout signalement de bugs ou demande de fonctionnalités, utilisez les *issues* de GitHub ou bien contactez moi sur Twitter [@lboyer_bx](https://twitter.com/lboyer_bx).
