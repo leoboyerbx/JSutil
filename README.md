@@ -108,7 +108,6 @@ Les 3 effets:
 
 - `slideToggle()`: Affiche l'élément si il est caché et le cache si il est affiché
 
-
 Si on ne souhaite pas avoir à appeler une fonction au début du script, on peut utiliser directement les méthodes de l'objet `DOMAnimations`.
 
 Dans ce cas les fonctions prennent 2 arguments :
@@ -127,18 +126,19 @@ DOMAnimations.slideUp(element, 1000) //Cacher l'élément avec une animation de 
 DOMAnimations.slideToggle(element, 400) //Afficher ou cacher l'élément avec une animation de 400 ms
 ```
 
-________________________________________________________
+---
 
+## css()
 
 > Dans le fichier `front-end/css.js`
 
 Ce module permet un accès plus simple à  `window.getComputedStyle()` en lecture et à `element.style` en écriture.
 
-En clair, **il permet de récupérer les valeurs des propriétés CSS d'un élément, ainsi que de les modifier**.
+En clair, **il permet de récupérer les valeurs des propriétés CSS d'un élément, ainsi que de les modifier**. On peut le comparer à la méthode css() de jQuery.
 
 ### Importer le module
 
-Importation comme un module ES6, si vous utilisez un bundler
+Importation comme un module ES6, si vous utilisez un bundler.
 
 ```javascript
 import css from './css'
@@ -146,26 +146,38 @@ import css from './css'
 
 ### Utilisation
 
-La fonction `css()` se comporte différemment selon le nombre et le type d'arguments qui lui sont passés.
+#### Initialiser le module
+
+Pour fonctionner, le module doit être initialisé avec la méthode `.init()`de la classe `Css`.
+
+```javascript
+Css.init()
+```
+
+Lors de l'initialisation, le script ajoute la méthode `.css()` au prototype de `HTMLElement`. On peut maintenant l'utiliser comme une méthode.
+
+#### Utiliser la méthode `.css()`
+
+La méthode `.css()` se comporte différemment selon le nombre et le type d'arguments qui lui sont passés.
 
 ##### Lire les propriétés
 
 ###### Lire une seule propriété
 
-Pour obtenir la valeur d'une seule propriété, on passe en arguments l'élément ciblé et la propriété que l'on veut lire.
+Pour obtenir la valeur d'une seule propriété, on passe en argument la propriété que l'on veut lire.
 
 ```javascript
-let width = css(element, 'width') //Renvoie la valeur de la propriété css 'width'
+let width = element.css('width') //Renvoie la valeur de la propriété css 'width'
 
 // Exemple: renvoie 'auto', ou bien '120px'
 ```
 
 ###### Lire plusieurs propriétés à la fois
 
-Pour obtenir la valeur d'une seule propriété, on passe en arguments l'élément ciblé et un `Array` contenant les propriétés que l'on veut lire.
+Pour obtenir la valeur de plusieurs propriétés, on passe en argument un `Array` contenant les propriétés que l'on veut lire.
 
 ```javascript
-let properties = css(element, ['width', 'height', 'background-color'])
+let properties = element.css(['width', 'height', 'background-color'])
 ```
 
 La valeur retournée est alors un tableau à 2 dimensions contenant les propriétés et leurs valeurs. Par exemple pour l'instruction donnée ci-dessus,  la variable`properties` ressembler à ceci:
@@ -178,20 +190,20 @@ La valeur retournée est alors un tableau à 2 dimensions contenant les proprié
 
 ###### Modifier une seule propriété
 
-Pour modifier la valeur d'une seule propriété, on passe en arguments l'élément ciblé, le nom de la propriété sur laquelle agir, et la valeut désirée.
+Pour modifier la valeur d'une seule propriété, on passe en arguments le nom de la propriété sur laquelle agir et la valeur désirée.
 
 ```javascript
-css(element, 'color', '#f00')
+element.css('color', '#f00')
 ```
 
 Il est possible de modifier une propriété de manière relative:
 
 ```javascript
 // Augmenter la hauteur de 50 px
-css(element, 'height', '+=50px')
+element.css('height', '+=50px')
 
 // Réduire la largeur de 30 px
-css(element, 'width', '-=30px')
+element.css('width', '-=30px')
 ```
 
 La valeur sera ajoutée à celle renvoyée par `window.getComputedStyle`.
@@ -200,11 +212,11 @@ La valeur sera ajoutée à celle renvoyée par `window.getComputedStyle`.
 
 ###### Modifier plusieurs propriétés à la fois
 
-Pour agir sur plusieurs propriétés, on passe en arguments l'élément ciblé, et un objet contenant toutes les propriétés à modifier.
+Pour agir sur plusieurs propriétés, on passe en argument un objet contenant toutes les propriétés à modifier.
 
 ```javascript
 // Modifier plusieurs propriétés
-css(element, {
+element.css({
   'width': '250px',
   'margin-bottom': '20px',
   'color': 'blue'
@@ -214,7 +226,7 @@ css(element, {
 A noter que la modification relative est possible ici aussi.
 
 ```javascript
-css(element, {
+element.css({
   'width': '+=20px', //Augmenter la largeur de 20 px
   'margin-bottom': '-=15px', // Réduire la marge inférieure de 15 px
   'overflow': 'hidden'
